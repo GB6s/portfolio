@@ -31,11 +31,29 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
   },
 
-  components: true
+  components: true,
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/api/auth/logout', method: 'post' },
+          user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+        },
+        // tokenRequired: true,
+        // tokenType: 'bearer',
+        // globalToken: true,
+        // autoFetchUser: true
+      }
+    }
+  }
 }
