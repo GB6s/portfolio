@@ -32,9 +32,8 @@ export default {
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/auth',
   ],
-
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
   },
@@ -55,5 +54,22 @@ export default {
         // autoFetchUser: true
       }
     }
-  }
+  },
+  /*
+  ** Axios module configuration
+  */
+  axios: {
+    baseURL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://api.gijsblanken.tk'
+        : 'http://localhost:4000',
+    https: process.env.NODE_ENV === 'production' ? true : false,
+    headers: {
+      common: {
+        'Access-Control-Allow-Origin': 'http://localhost:3000',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Headers': 'origin, content-type, accept'
+      }
+    }
+  },
 }

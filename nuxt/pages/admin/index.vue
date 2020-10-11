@@ -14,6 +14,7 @@
                 <b-form-input
                     id="input-1"
                     type="text"
+                    v-model="login.username"
                     required
                     placeholder="Enter username"
                 ></b-form-input>
@@ -27,6 +28,7 @@
                 <b-form-input
                     id="input-2"
                     type="password"
+                    v-model="login.password"
                     required
                     placeholder="Enter password"
                 ></b-form-input>
@@ -50,7 +52,6 @@ export default {
   },
   methods: {
     async userLogin() {
-        console.log('fired');
       try {
         let response = await this.$auth.loginWith('local', { data: this.login })
         console.log(response)
