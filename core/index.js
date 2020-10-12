@@ -1,33 +1,21 @@
 const Koa = require('koa');
 const router = require('koa-router');
 const morgan = require('koa-morgan')
-const cors = require('@koa/cors');
 const bodyParser = require('koa-bodyparser');
+const auth = require('./auth');
 const app = new Koa();
 
-app.use(cors());
+if(process.env.NODE_ENV !== 'production') {
+  const cors = require('@koa/cors');
+  app.use(cors());
+}
+
 app.use(morgan('tiny'));
 app.use(bodyParser());
 
-var _ = router({
-  prefix: '/api/auth'
-});
+app.use(auth.routes());
+app.use(auth.allowedMethods());
 
-_.post('/login', (ctx, next) => {
-  console.log(ctx.request.body);
-  ctx.body = 'test';
-})
-
-_.post('/logout', (ctx, next) => {
-  ctx.body = 'test';
-})
-
-_.get('/user', (ctx, next) => {
-  ctx.body = 'test';
-})
-
-app
-  .use(_.routes())
-  .use(_.allowedMethods());
-
-app.listen(4000);
+var port = process.env.PORT || 4000;
+app.listen(port);
+console.log(`Listening on ${port}`);

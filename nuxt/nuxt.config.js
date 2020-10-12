@@ -61,15 +61,8 @@ export default {
   axios: {
     baseURL:
       process.env.NODE_ENV === 'production'
-        ? 'https://api.gijsblanken.tk'
+        ? 'http://localhost'
         : 'http://localhost:4000',
-    https: process.env.NODE_ENV === 'production' ? true : false,
-    headers: {
-      common: {
-        'Access-Control-Allow-Origin': 'http://localhost:3000',
-        'Access-Control-Allow-Credentials': true,
-        'Access-Control-Allow-Headers': 'origin, content-type, accept'
-      }
-    }
+    https: process.env.NODE_ENV === 'production' ? true : false
   },
 }
