@@ -88,3 +88,12 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# Private
+core/keys
+
+#dev-dependencies
+dev-dependencies/postgres-data
+dev-dependencies/pgadmin-data
+dev-dependencies/*/
+!/dev-dependencies/nginx

@@ -1,0 +1,47 @@
+version: "3.1"
+services:
+  swag:
+    image: linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - URL=gijsblanken.com
+      - SUBDOMAINS=www
+      - VALIDATION=dns
+      - DNSPLUGIN=cloudflare
+    volumes:
+        - ./swag/config:/config
+    ports:
+      - 80:80
+    restart: unless-stopped
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    restart: always
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+        - 5432:5432
+    environment:
+        POSTGRES_USER: root
+        POSTGRES_PASSWORD: changeme
+        POSTGRES_DB: mydb
+
+  pgadmin4:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin
+    expose:
+        - 80
+    environment:
+        PGADMIN_DEFAULT_EMAIL: gb6development@gmail.com
+        PGADMIN_DEFAULT_PASSWORD: dev
+    depends_on:
+        - postgres

@@ -1,3 +1,5 @@
+const hljs = require('highlight.js');
+
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -14,6 +16,7 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    '~/node_modules/highlight.js/styles/tomorrow-night.css',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
@@ -33,6 +36,8 @@ export default {
     'bootstrap-vue/nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    '@nuxtjs/markdownit',
+    '@nuxtjs/toast',
   ],
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
@@ -44,9 +49,9 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
-          logout: { url: '/api/auth/logout', method: 'post' },
-          user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+          login: { url: '/auth/login', method: 'post', propertyName: 'token' },
+          logout: { url: '/auth/logout', method: 'post' },
+          user: { url: '/auth/user', method: 'get', propertyName: 'user' }
         },
         // tokenRequired: true,
         // tokenType: 'bearer',
@@ -59,10 +64,13 @@ export default {
   ** Axios module configuration
   */
   axios: {
-    baseURL:
-      process.env.NODE_ENV === 'production'
-        ? 'http://localhost'
-        : 'http://localhost:4000',
-    https: process.env.NODE_ENV === 'production' ? true : false
+    baseURL:'http://localhost/api'
   },
+
+  markdownit: {
+    injected: true,
+    use: [
+      'markdown-it-highlightjs'
+    ]
+  }
 }
