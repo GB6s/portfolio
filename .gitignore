@@ -93,7 +93,7 @@ sw.*
 core/keys
 
 #dev-dependencies
-dev-dependencies/postgres-data
-dev-dependencies/pgadmin-data
-dev-dependencies/*/
-!/dev-dependencies/nginx
+dev-dependencies/postgres-data/
+dev-dependencies/pgadmin-data/
+dev-dependencies/swag/config/*/
+!/dev-dependencies/swag/config/nginx
